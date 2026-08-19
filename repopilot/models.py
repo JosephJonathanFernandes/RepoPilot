@@ -41,3 +41,17 @@ class EntryPoint:
     type: str
     confidence: str
     reason: str
+
+@dataclass
+class RunInstruction:
+    command: str
+    purpose: str
+    confidence: str
+    source: str
+
+@dataclass
+class RunInstructions:
+    install: List[RunInstruction]
+    build: List[RunInstruction]
+    run: List[RunInstruction]
+    test: List[RunInstruction]

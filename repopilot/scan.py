@@ -37,6 +37,10 @@ def main():
     # Task 3: Detect Entry Points
     from repopilot.entrypoints import detect_entrypoints
     entrypoints = detect_entrypoints(inventory, facts)
+    
+    # Task 4: Detect Run Instructions
+    from repopilot.run_instructions import detect_run_instructions
+    run_instructions = detect_run_instructions(inventory, facts, entrypoints)
         
     if args.json:
         # We can combine them into one output for json, but user just wants basic JSON, 
@@ -44,7 +48,8 @@ def main():
         output = {
             "inventory": dataclasses.asdict(inventory),
             "facts": dataclasses.asdict(facts),
-            "entrypoints": [dataclasses.asdict(e) for e in entrypoints]
+            "entrypoints": [dataclasses.asdict(e) for e in entrypoints],
+            "run_instructions": dataclasses.asdict(run_instructions)
         }
         print(json.dumps(output, cls=DataclassEncoder, indent=2))
         return
@@ -121,7 +126,25 @@ def main():
                 print(f"    Type: {ep.type}")
                 print(f"    Reason: {ep.reason}")
     else:
+        print("  None detected")
+        
+    print("\nRun Instructions")
+    print("-" * 16)
+    
+    def print_instruction_category(title, instructions):
+        if instructions:
+            print(f"\n{title}:")
+            for inst in instructions:
+                print(f"  {inst.confidence:<6} {inst.command}")
+                print(f"         Source: {inst.source}")
+    
+    if not (run_instructions.install or run_instructions.build or run_instructions.run or run_instructions.test):
         print("\n  None detected")
+    else:
+        print_instruction_category("INSTALL", run_instructions.install)
+        print_instruction_category("BUILD", run_instructions.build)
+        print_instruction_category("RUN", run_instructions.run)
+        print_instruction_category("TEST", run_instructions.test)
     
     print("\nFile Extensions:")
     for ext, count in sorted(inventory.file_statistics.items(), key=lambda x: x[1], reverse=True):
