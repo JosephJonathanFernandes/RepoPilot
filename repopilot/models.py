@@ -34,3 +34,10 @@ class RepositoryFacts:
     package_managers: List[str]
     frameworks: List[str]
     dependencies: List[Dependency]
+
+@dataclass
+class EntryPoint:
+    path: str
+    type: str
+    confidence: str
+    reason: str

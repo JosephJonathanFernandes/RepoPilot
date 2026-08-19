@@ -33,13 +33,18 @@ def main():
     # Task 2: Extract Facts
     from repopilot.facts import extract_facts
     facts = extract_facts(inventory)
+    
+    # Task 3: Detect Entry Points
+    from repopilot.entrypoints import detect_entrypoints
+    entrypoints = detect_entrypoints(inventory, facts)
         
     if args.json:
         # We can combine them into one output for json, but user just wants basic JSON, 
         # let's just dump inventory for now or we could include facts.
         output = {
             "inventory": dataclasses.asdict(inventory),
-            "facts": dataclasses.asdict(facts)
+            "facts": dataclasses.asdict(facts),
+            "entrypoints": [dataclasses.asdict(e) for e in entrypoints]
         }
         print(json.dumps(output, cls=DataclassEncoder, indent=2))
         return
@@ -95,6 +100,28 @@ def main():
                 print(f"  {name}")
     else:
         print("  None detected")
+        
+    print("\nEntry Points")
+    print("-" * 12)
+    if entrypoints:
+        high_eps = [e for e in entrypoints if e.confidence == 'HIGH']
+        med_eps = [e for e in entrypoints if e.confidence == 'MEDIUM']
+        
+        if high_eps:
+            print("\nHIGH:")
+            for ep in high_eps:
+                print(f"  {ep.path}")
+                print(f"    Type: {ep.type}")
+                print(f"    Reason: {ep.reason}")
+                
+        if med_eps:
+            print("\nMEDIUM:")
+            for ep in med_eps:
+                print(f"  {ep.path}")
+                print(f"    Type: {ep.type}")
+                print(f"    Reason: {ep.reason}")
+    else:
+        print("\n  None detected")
     
     print("\nFile Extensions:")
     for ext, count in sorted(inventory.file_statistics.items(), key=lambda x: x[1], reverse=True):
