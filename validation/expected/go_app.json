@@ -1,0 +1,17 @@
+{
+  "languages": {
+    "required": [
+      "Go"
+    ]
+  },
+  "manifests": {
+    "required": [
+      "go.mod"
+    ]
+  },
+  "entry_points": {
+    "required": [
+      "cmd/server/main.go"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "languages": {
+    "required": [
+      "JavaScript"
+    ]
+  },
+  "package_managers": {
+    "required": [
+      "npm"
+    ]
+  },
+  "manifests": {
+    "required": [
+      "package.json",
+      "package-lock.json"
+    ]
+  },
+  "entry_points": {
+    "required": [
+      "src/index.js"
+    ]
+  },
+  "architecture_patterns": {
+    "required": [
+      "Backend/API application"
+    ]
+  },
+  "run_instructions": {
+    "required": [
+      "npm run start",
+      "npm run test",
+      "npm install"
+    ]
+  }
+}

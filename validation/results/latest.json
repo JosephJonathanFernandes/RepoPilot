@@ -1,0 +1,64 @@
+{
+  "repositories_evaluated": 7,
+  "scanner_results": {},
+  "facts_results": {
+    "fastapi_app": {
+      "Languages Recall": "1/1",
+      "Frameworks Recall": "1/1"
+    },
+    "go_app": {
+      "Languages Recall": "1/1"
+    },
+    "large_repo": {
+      "Languages Recall": "1/1"
+    },
+    "monorepo": {},
+    "node_app": {
+      "Languages Recall": "1/1"
+    },
+    "python_cli": {
+      "Languages Recall": "1/1"
+    },
+    "react_app": {
+      "Languages Recall": "1/1",
+      "Frameworks Recall": "1/1"
+    }
+  },
+  "entrypoints_results": {
+    "fastapi_app": {},
+    "go_app": {},
+    "large_repo": {},
+    "monorepo": {},
+    "node_app": {},
+    "python_cli": {},
+    "react_app": {}
+  },
+  "run_instructions_results": {},
+  "architecture_results": {
+    "fastapi_app": {},
+    "go_app": {},
+    "large_repo": {},
+    "monorepo": {},
+    "node_app": {},
+    "python_cli": {},
+    "react_app": {}
+  },
+  "false_positives": [
+    "[monorepo] False architecture pattern: Backend/API application",
+    "[node_app] False entry points: {'package.json'}",
+    "[node_app] False architecture pattern: Layered"
+  ],
+  "false_negatives": [
+    "[fastapi_app] Missed architecture pattern: {'MVC-like'}",
+    "[python_cli] Missed architecture pattern: {'Flat / Script-based'}"
+  ],
+  "confidence_audit": {
+    "high_correct": 5,
+    "high_incorrect": 1,
+    "medium_correct": 7,
+    "medium_incorrect": 2
+  },
+  "findings": [
+    "[large_repo] Scanner successfully ignored large directories."
+  ]
+}

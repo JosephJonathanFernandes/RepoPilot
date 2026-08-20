@@ -1,0 +1,22 @@
+{
+  "languages": {
+    "required": [
+      "Python"
+    ]
+  },
+  "entry_points": {
+    "required": [
+      "main.py"
+    ]
+  },
+  "important_files": {
+    "required": [
+      "requirements.txt"
+    ]
+  },
+  "architecture_patterns": {
+    "required": [
+      "Flat / Script-based"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "languages": {
+    "required": [
+      "Python"
+    ]
+  },
+  "entry_points": {
+    "required": [
+      "main.py"
+    ]
+  }
+}

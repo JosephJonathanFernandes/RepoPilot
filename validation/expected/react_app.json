@@ -1,0 +1,27 @@
+{
+  "languages": {
+    "required": [
+      "TypeScript"
+    ]
+  },
+  "frameworks": {
+    "required": [
+      "React"
+    ]
+  },
+  "package_managers": {
+    "required": [
+      "yarn"
+    ]
+  },
+  "manifests": {
+    "required": [
+      "package.json"
+    ]
+  },
+  "architecture_patterns": {
+    "required": [
+      "Frontend application"
+    ]
+  }
+}

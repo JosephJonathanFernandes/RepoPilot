@@ -1,0 +1,35 @@
+{
+  "languages": {
+    "required": [
+      "Python"
+    ]
+  },
+  "frameworks": {
+    "required": [
+      "FastAPI"
+    ]
+  },
+  "entry_points": {
+    "required": [
+      "app/main.py"
+    ]
+  },
+  "important_files": {
+    "required": [
+      "requirements.txt"
+    ]
+  },
+  "architecture_patterns": {
+    "required": [
+      "Backend/API application",
+      "MVC-like",
+      "Layered"
+    ]
+  },
+  "run_instructions": {
+    "required": [
+      "pip install -r requirements.txt",
+      "uvicorn app.main:app --reload"
+    ]
+  }
+}

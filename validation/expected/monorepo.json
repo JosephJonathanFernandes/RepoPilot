@@ -1,0 +1,15 @@
+{
+  "manifests": {
+    "required": [
+      "package.json",
+      "apps/web/package.json",
+      "apps/api/package.json",
+      "packages/ui/package.json"
+    ]
+  },
+  "architecture_patterns": {
+    "required": [
+      "Monorepo"
+    ]
+  }
+}
