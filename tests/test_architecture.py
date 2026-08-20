@@ -58,15 +58,15 @@ class TestArchitecture(unittest.TestCase):
         
         arch = self.get_arch()
         self.assertTrue(any(r.source == 'src/index.js' and r.target == 'src/user.js' for r in arch.relations))
-        self.assertTrue(any(r.source == 'src/index.js' and r.target == 'lodash' for r in arch.relations))
         
     def test_go_imports(self):
         (self.root / 'main.go').write_text("package main\nimport (\n\t\"fmt\"\n\t\"github.com/foo/bar\"\n)\nimport \"os\"", encoding='utf-8')
+        (self.root / 'utils.go').touch()
+        (self.root / 'main.go').write_text("package main\nimport \"./utils\"", encoding='utf-8')
         
         arch = self.get_arch()
-        self.assertTrue(any(r.source == 'main.go' and r.target == 'fmt' for r in arch.relations))
-        self.assertTrue(any(r.source == 'main.go' and r.target == 'github.com/foo/bar' for r in arch.relations))
-        self.assertTrue(any(r.source == 'main.go' and r.target == 'os' for r in arch.relations))
+        self.assertEqual(len(arch.relations), 1)
+        self.assertEqual(arch.relations[0].target, 'utils.go')
         
     def test_mvc_detection(self):
         for d in ['models', 'views', 'controllers']:

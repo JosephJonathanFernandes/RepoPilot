@@ -2,6 +2,7 @@ import argparse
 import dataclasses
 import json
 import sys
+import os
 from pathlib import Path
 
 from repopilot.scanner import scan_repository
@@ -13,9 +14,10 @@ class DataclassEncoder(json.JSONEncoder):
         return super().default(o)
 
 def main():
-    parser = argparse.ArgumentParser(description="RepoPilot Repository Scanner")
-    parser.add_argument("path", nargs="?", default=".", help="Path to the local repository (default: current directory)")
-    parser.add_argument("--json", action="store_true", help="Output raw JSON instead of readable summary")
+    parser = argparse.ArgumentParser(description="Analyze a local repository")
+    parser.add_argument("path", nargs="?", default=".", help="Path to the repository")
+    parser.add_argument("--json", action="store_true", help="Output results in JSON format")
+    parser.add_argument("--explain", action="store_true", help="Generate an LLM-powered explanation of the repository")
     
     args = parser.parse_args()
     
@@ -57,6 +59,96 @@ def main():
             "architecture": dataclasses.asdict(architecture)
         }
         print(json.dumps(output, cls=DataclassEncoder, indent=2))
+        return
+
+    if getattr(args, 'explain', False):
+        print("Deterministic repository analysis")
+        print("        v")
+        print("Evidence collected")
+        print("        v")
+        
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            print("Deterministic analysis completed.\n")
+            print("LLM explanation skipped:")
+            print("GEMINI_API_KEY is not configured.")
+            return
+            
+        print("Generating explanation...")
+        print("        v")
+        
+        from repopilot.evidence import create_evidence_pack
+        from repopilot.llm import generate_explanation, GeminiProvider
+        
+        evidence_pack = create_evidence_pack(inventory, facts, entrypoints, run_instructions, architecture)
+        provider = GeminiProvider(api_key=api_key)
+        
+        try:
+            explanation = generate_explanation(evidence_pack, provider)
+            
+            print("\nRepository Overview")
+            print("-" * 19)
+            print(explanation.overview)
+            
+            print("\nArchitecture")
+            print("-" * 12)
+            print(explanation.architecture)
+            
+            print("\nHow to Run")
+            print("-" * 10)
+            if explanation.how_to_run:
+                for idx, step in enumerate(explanation.how_to_run, 1):
+                    print(f"{idx}. {step}")
+            else:
+                print("Not determined from available repository evidence.")
+                
+            print("\nEntry Points")
+            print("-" * 12)
+            if explanation.entry_points:
+                for ep in explanation.entry_points:
+                    print(f"- {ep}")
+            else:
+                print("Not determined from available repository evidence.")
+                
+            print("\nImportant Files")
+            print("-" * 15)
+            if explanation.important_files:
+                for f in explanation.important_files:
+                    print(f"- {f}")
+            else:
+                print("Not determined from available repository evidence.")
+                
+            print("\nDependencies")
+            print("-" * 12)
+            if explanation.dependencies:
+                for d in explanation.dependencies:
+                    print(f"- {d}")
+            else:
+                print("Not determined from available repository evidence.")
+                
+            print("\nGetting Started")
+            print("-" * 15)
+            print(explanation.getting_started)
+            
+            print("\nPotential Contribution Areas")
+            print("-" * 28)
+            if explanation.contribution_areas:
+                for ca in explanation.contribution_areas:
+                    print(f"- {ca}")
+            else:
+                print("Not determined from available repository evidence.")
+                
+            print("\nCaveats")
+            print("-" * 7)
+            if explanation.caveats:
+                for c in explanation.caveats:
+                    print(f"- {c}")
+            else:
+                print("None detected.")
+                
+        except Exception as e:
+            print(f"\nError generating explanation: {e}")
+            
         return
 
     # Readable summary

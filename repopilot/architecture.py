@@ -159,7 +159,8 @@ def detect_architecture(inventory: RepositoryInventory, facts: RepositoryFacts, 
             except Exception:
                 pass
         
-        mapped_relations.append(ModuleRelation(source=r.source, target=target_path, relation=r.relation, evidence=r.evidence))
+        if target_path in path_map:
+            mapped_relations.append(ModuleRelation(source=r.source, target=target_path, relation=r.relation, evidence=r.evidence))
 
     # 4. Component Identification
     components = []

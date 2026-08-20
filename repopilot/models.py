@@ -89,3 +89,24 @@ class Architecture:
     components: List[Component]
     relations: List[ModuleRelation]
     patterns: List[ArchitecturePattern]
+
+@dataclass
+class RepositoryEvidence:
+    repository_name: str
+    inventory: RepositoryInventory
+    facts: RepositoryFacts
+    entrypoints: List[EntryPoint]
+    run_instructions: RunInstructions
+    architecture: Architecture
+
+@dataclass
+class ExplanationResponse:
+    overview: str
+    architecture: str
+    how_to_run: List[str]
+    entry_points: List[str]
+    important_files: List[str]
+    dependencies: List[str]
+    getting_started: str
+    contribution_areas: List[str]
+    caveats: List[str]
