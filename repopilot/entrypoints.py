@@ -124,20 +124,30 @@ def detect_entrypoints(inventory: RepositoryInventory, facts: RepositoryFacts) -
         if pkg_path.exists():
             try:
                 data = json.loads(pkg_path.read_text(encoding='utf-8'))
-                if 'main' in data:
-                    entrypoints.append(EntryPoint(
-                        path='package.json',
-                        type='package_entry',
-                        confidence='HIGH',
-                        reason='package.json specifies "main" entry point'
-                    ))
+                
+                # Helper to check and add entry point if it exists
+                def _add_pkg_entry(rel_path: str, ep_type: str, reason: str):
+                    if rel_path.startswith('./'):
+                        rel_path = rel_path[2:]
+                    if (root_path / rel_path).is_file():
+                        entrypoints.append(EntryPoint(
+                            path=rel_path.replace('\\', '/'),
+                            type=ep_type,
+                            confidence='HIGH',
+                            reason=reason
+                        ))
+                
+                if 'main' in data and isinstance(data['main'], str):
+                    _add_pkg_entry(data['main'], 'package_entry', 'package.json specifies "main" entry point')
+                    
                 if 'bin' in data:
-                    entrypoints.append(EntryPoint(
-                        path='package.json',
-                        type='cli_entry',
-                        confidence='HIGH',
-                        reason='package.json specifies "bin" CLI entry point(s)'
-                    ))
+                    bin_data = data['bin']
+                    if isinstance(bin_data, str):
+                        _add_pkg_entry(bin_data, 'cli_entry', 'package.json specifies "bin" CLI entry point')
+                    elif isinstance(bin_data, dict):
+                        for bin_path in bin_data.values():
+                            if isinstance(bin_path, str):
+                                _add_pkg_entry(bin_path, 'cli_entry', 'package.json specifies "bin" CLI entry point')
             except Exception:
                 pass
 

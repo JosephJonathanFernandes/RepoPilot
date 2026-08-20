@@ -40,7 +40,7 @@ def get_scenarios() -> List[Scenario]:
                 "frameworks": {"required": ["FastAPI"]},
                 "entry_points": {"required": ["app/main.py"]},
                 "important_files": {"required": ["requirements.txt"]},
-                "architecture_patterns": {"required": ["Backend/API application", "MVC-like", "Layered"]},
+                "architecture_patterns": {"required": ["Backend/API application", "Layered"]},
                 "run_instructions": {"required": ["pip install -r requirements.txt", "uvicorn app.main:app --reload"]}
             }
         ),

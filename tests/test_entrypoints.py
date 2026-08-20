@@ -48,14 +48,19 @@ class TestEntryPoints(unittest.TestCase):
             json.dumps({"main": "index.js", "bin": {"cli": "cli.js"}}), encoding='utf-8'
         )
         (self.root / 'index.js').touch()
+        (self.root / 'cli.js').touch()
         
         eps = self.get_eps()
         package_eps = [e for e in eps if e.path == 'package.json']
-        self.assertEqual(len(package_eps), 2)
+        self.assertEqual(len(package_eps), 0)
         
         idx = next((e for e in eps if e.path == 'index.js'), None)
         self.assertIsNotNone(idx)
-        self.assertEqual(idx.confidence, 'MEDIUM')
+        self.assertEqual(idx.confidence, 'HIGH')
+        
+        cli = next((e for e in eps if e.path == 'cli.js'), None)
+        self.assertIsNotNone(cli)
+        self.assertEqual(cli.confidence, 'HIGH')
         
     def test_go_func_main(self):
         (self.root / 'main.go').write_text("package main\nfunc main() {}", encoding='utf-8')

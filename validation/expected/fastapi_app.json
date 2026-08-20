@@ -22,7 +22,6 @@
   "architecture_patterns": {
     "required": [
       "Backend/API application",
-      "MVC-like",
       "Layered"
     ]
   },

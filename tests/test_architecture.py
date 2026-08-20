@@ -107,6 +107,21 @@ class TestArchitecture(unittest.TestCase):
         arch = self.get_arch()
         self.assertTrue(any(c.path == 'tests/' and c.category == 'tests' for c in arch.components))
         self.assertTrue(any(c.path == 'docs/' and c.category == 'documentation' for c in arch.components))
+        self.assertTrue(any(p.name == 'Flat / Script-based' for p in arch.patterns), "Should be flat despite tests/docs")
+
+    def test_monorepo_suppresses_generic_backend_frontend(self):
+        (self.root / 'apps').mkdir()
+        (self.root / 'apps' / 'api').mkdir()
+        (self.root / 'apps' / 'api' / 'main.py').touch()
+        (self.root / 'apps' / 'web').mkdir()
+        (self.root / 'apps' / 'web' / 'components').mkdir()
+        (self.root / 'apps' / 'web' / 'components' / 'Button.js').touch()
+        (self.root / 'package.json').write_text('{"dependencies": {"react": "18"}}', encoding='utf-8')
+        
+        arch = self.get_arch()
+        self.assertTrue(any(p.name == 'Monorepo' for p in arch.patterns))
+        self.assertFalse(any(p.name == 'Backend/API application' for p in arch.patterns))
+        self.assertFalse(any(p.name == 'Frontend application' for p in arch.patterns))
 
 if __name__ == '__main__':
     unittest.main()

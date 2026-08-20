@@ -184,7 +184,8 @@ def detect_architecture(inventory: RepositoryInventory, facts: RepositoryFacts, 
     # 5. Architecture Pattern Detection
     patterns = []
     
-    if 'packages' in categories_found or 'apps' in categories_found:
+    is_monorepo = 'packages' in categories_found or 'apps' in categories_found
+    if is_monorepo:
         patterns.append(ArchitecturePattern(
             name='Monorepo',
             confidence='HIGH',
@@ -212,7 +213,7 @@ def detect_architecture(inventory: RepositoryInventory, facts: RepositoryFacts, 
         ))
         
     is_frontend = ('components' in categories_found or 'pages' in categories_found) and ('React' in facts.frameworks or 'Vue' in facts.frameworks or 'package.json' in facts.manifests)
-    if is_frontend:
+    if is_frontend and not is_monorepo:
         patterns.append(ArchitecturePattern(
             name='Frontend application',
             confidence='HIGH' if facts.frameworks else 'MEDIUM',
@@ -220,14 +221,18 @@ def detect_architecture(inventory: RepositoryInventory, facts: RepositoryFacts, 
         ))
         
     if 'api' in categories_found or 'routes' in categories_found or 'controllers' in categories_found:
-        if not is_frontend:
+        if not is_frontend and not is_monorepo:
             patterns.append(ArchitecturePattern(
                 name='Backend/API application',
                 confidence='MEDIUM',
                 evidence=['Contains routes/, controllers/, or api/ directories']
             ))
             
-    if not components and len(directories_info) <= 2:
+    # For flat, ignore non-architectural components like tests or documentation
+    non_architectural = {'tests', 'documentation', 'example'}
+    architectural_components = [c for c in components if c.category not in non_architectural]
+    
+    if not architectural_components and len(directories_info) <= 2:
         patterns.append(ArchitecturePattern(
             name='Flat / Script-based',
             confidence='MEDIUM',

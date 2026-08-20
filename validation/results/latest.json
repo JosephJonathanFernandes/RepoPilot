@@ -44,19 +44,14 @@
     "react_app": {}
   },
   "false_positives": [
-    "[monorepo] False architecture pattern: Backend/API application",
-    "[node_app] False entry points: {'package.json'}",
     "[node_app] False architecture pattern: Layered"
   ],
-  "false_negatives": [
-    "[fastapi_app] Missed architecture pattern: {'MVC-like'}",
-    "[python_cli] Missed architecture pattern: {'Flat / Script-based'}"
-  ],
+  "false_negatives": [],
   "confidence_audit": {
-    "high_correct": 5,
-    "high_incorrect": 1,
-    "medium_correct": 7,
-    "medium_incorrect": 2
+    "high_correct": 6,
+    "high_incorrect": 0,
+    "medium_correct": 8,
+    "medium_incorrect": 1
   },
   "findings": [
     "[large_repo] Scanner successfully ignored large directories."

@@ -63,22 +63,19 @@ Architecture
 
 False Positives
 ---------------
-- [monorepo] False architecture pattern: Backend/API application
-- [node_app] False entry points: {'package.json'}
 - [node_app] False architecture pattern: Layered
 
 False Negatives
 ---------------
-- [fastapi_app] Missed architecture pattern: {'MVC-like'}
-- [python_cli] Missed architecture pattern: {'Flat / Script-based'}
+None detected.
 
 Confidence Audit
 ----------------
-HIGH-confidence correct: 5
-HIGH-confidence incorrect: 1
+HIGH-confidence correct: 6
+HIGH-confidence incorrect: 0
 
-MEDIUM-confidence correct: 7
-MEDIUM-confidence incorrect: 2
+MEDIUM-confidence correct: 8
+MEDIUM-confidence incorrect: 1
 
 Overall Findings
 ----------------
