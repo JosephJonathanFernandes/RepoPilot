@@ -55,3 +55,37 @@ class RunInstructions:
     build: List[RunInstruction]
     run: List[RunInstruction]
     test: List[RunInstruction]
+
+@dataclass
+class DirectoryInfo:
+    path: str
+    file_count: int
+    source_file_count: int
+    purpose_hint: str
+
+@dataclass
+class Component:
+    path: str
+    category: str
+    confidence: str
+    evidence: str
+
+@dataclass
+class ModuleRelation:
+    source: str
+    target: str
+    relation: str
+    evidence: str
+
+@dataclass
+class ArchitecturePattern:
+    name: str
+    confidence: str
+    evidence: List[str]
+
+@dataclass
+class Architecture:
+    directories: List[DirectoryInfo]
+    components: List[Component]
+    relations: List[ModuleRelation]
+    patterns: List[ArchitecturePattern]

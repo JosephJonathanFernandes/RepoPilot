@@ -41,6 +41,10 @@ def main():
     # Task 4: Detect Run Instructions
     from repopilot.run_instructions import detect_run_instructions
     run_instructions = detect_run_instructions(inventory, facts, entrypoints)
+    
+    # Task 5: Detect Architecture
+    from repopilot.architecture import detect_architecture
+    architecture = detect_architecture(inventory, facts, entrypoints, run_instructions)
         
     if args.json:
         # We can combine them into one output for json, but user just wants basic JSON, 
@@ -49,7 +53,8 @@ def main():
             "inventory": dataclasses.asdict(inventory),
             "facts": dataclasses.asdict(facts),
             "entrypoints": [dataclasses.asdict(e) for e in entrypoints],
-            "run_instructions": dataclasses.asdict(run_instructions)
+            "run_instructions": dataclasses.asdict(run_instructions),
+            "architecture": dataclasses.asdict(architecture)
         }
         print(json.dumps(output, cls=DataclassEncoder, indent=2))
         return
@@ -139,12 +144,49 @@ def main():
                 print(f"         Source: {inst.source}")
     
     if not (run_instructions.install or run_instructions.build or run_instructions.run or run_instructions.test):
-        print("\n  None detected")
+        print("  None detected")
     else:
         print_instruction_category("INSTALL", run_instructions.install)
         print_instruction_category("BUILD", run_instructions.build)
         print_instruction_category("RUN", run_instructions.run)
         print_instruction_category("TEST", run_instructions.test)
+        
+    print("\nArchitecture")
+    print("-" * 12)
+    
+    print("\nPatterns:")
+    if architecture.patterns:
+        for p in architecture.patterns:
+            print(f"  {p.name} ({p.confidence})")
+    else:
+        print("  None detected")
+        
+    print("\nComponents:")
+    if architecture.components:
+        for c in architecture.components:
+            print(f"  {c.path:<20} {c.category}")
+    else:
+        print("  None detected")
+        
+    print("\nRelationships:")
+    ep_paths = {ep.path for ep in entrypoints}
+    shown_rels = [r for r in architecture.relations if r.source in ep_paths]
+    
+    from collections import defaultdict
+    rel_map = defaultdict(list)
+    for r in shown_rels:
+        rel_map[r.source].append(r.target)
+        
+    if rel_map:
+        for src, targets in rel_map.items():
+            print(f"  {src}")
+            for t in sorted(set(targets))[:5]:
+                print(f"      -> {t}")
+            if len(set(targets)) > 5:
+                print(f"      -> ... and {len(set(targets))-5} more")
+            print()
+    else:
+        print("  None detected")
     
     print("\nFile Extensions:")
     for ext, count in sorted(inventory.file_statistics.items(), key=lambda x: x[1], reverse=True):
