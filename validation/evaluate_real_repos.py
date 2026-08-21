@@ -13,7 +13,7 @@ from repopilot.entrypoints import detect_entrypoints
 from repopilot.run_instructions import detect_run_instructions
 from repopilot.architecture import detect_architecture
 from repopilot.evidence import create_evidence_pack
-from repopilot.llm import LLMProvider
+from repopilot.llm import GeminiProvider, generate_explanation
 
 REPOSITORIES = [
     {
@@ -113,11 +113,11 @@ def run_evaluation(repo, use_llm):
             print(f"Running LLM explanation for {repo['name']}...")
             t1 = time.time()
             evidence = create_evidence_pack(inventory, facts, entrypoints, run_instructions, architecture)
-            llm = LLMProvider(api_key=api_key)
+            llm = GeminiProvider(api_key=api_key)
             try:
-                result = llm.explain_repository(evidence)
+                result = generate_explanation(evidence, llm)
                 llm_raw_response = asdict(result)
-                explanation = f"**Summary**: {result.summary}\n\n**Architecture Explanation**:\n{result.architecture_explanation}\n\n**Run Explanation**:\n{result.run_explanation}\n\n**Uncertainties**: {result.uncertainties}"
+                explanation = f"**Overview**: {result.overview}\n\n**Architecture Explanation**:\n{result.architecture}\n\n**Run Explanation**:\n{chr(10).join(result.how_to_run)}\n\n**Uncertainties**: {chr(10).join(result.caveats)}"
             except Exception as e:
                 explanation = f"LLM evaluation: FAILED\nReason: {e}"
             llm_time = time.time() - t1
