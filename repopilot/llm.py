@@ -18,6 +18,8 @@ class GeminiProvider:
         self.url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={self.api_key}"
 
     def generate(self, prompt: str) -> str:
+        # Hard rate limit to prevent hitting 15 RPM free-tier limit during benchmarks
+        time.sleep(4.0)
         data = {
             "contents": [{
                 "parts": [{"text": prompt}]

@@ -124,9 +124,9 @@ def format_rp_d_output(pack):
     """Extract standard benchmark fields from deterministic output."""
     ep = None
     ep_evidence = None
-    if pack.get("entry_points"):
-        ep = pack["entry_points"][0]["file"]
-        ep_evidence = pack["entry_points"][0]["evidence"]
+    if pack.get("entrypoints"):
+        ep = pack["entrypoints"][0]["path"]
+        ep_evidence = pack["entrypoints"][0]["reason"]
         
     rc = None
     if pack.get("run_instructions"):

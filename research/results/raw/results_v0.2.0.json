@@ -19,13 +19,17 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 0.9910266399383545
+      "latency": 1.9771316051483154
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "src/black/__init__.py",
+        "run_command": "black {source_file_or_directory}",
+        "framework": null,
+        "architecture": "CLI_SCRIPT",
+        "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 2.600419521331787
+      "latency": 19.177053213119507
     },
     "gemini_direct": {
       "results": {
@@ -35,7 +39,7 @@
         "architecture": "CLI/Script",
         "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 12.800436973571777
+      "latency": 22.945587873458862
     }
   },
   {
@@ -58,19 +62,27 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 0.495098352432251
+      "latency": 1.147939682006836
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "src/flask/cli.py",
+        "run_command": "python src/flask/cli.py",
+        "framework": "Flask",
+        "architecture": "CLI_SCRIPT",
+        "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 2.7440507411956787
+      "latency": 25.441970586776733
     },
     "gemini_direct": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "src/flask/cli.py",
+        "run_command": "flask run",
+        "framework": "Flask",
+        "architecture": "Library",
+        "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 0.7927086353302002
+      "latency": 24.63435125350952
     }
   },
   {
@@ -93,19 +105,27 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 4.607590675354004
+      "latency": 12.972002029418945
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "fastapi/__init__.py",
+        "run_command": "$ uv run fastapi dev",
+        "framework": "FastAPI",
+        "architecture": "Web API",
+        "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 5.269822597503662
+      "latency": 37.937053203582764
     },
     "gemini_direct": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": null,
+        "run_command": "mkdocs serve",
+        "framework": "FastAPI",
+        "architecture": "Library",
+        "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 0.7523491382598877
+      "latency": 36.15557026863098
     }
   },
   {
@@ -128,19 +148,27 @@
         "architecture": "LIBRARY",
         "primary_evidence_file": null
       },
-      "latency": 1.274660587310791
+      "latency": 3.278128147125244
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "rich/__main__.py",
+        "run_command": "python -m rich",
+        "framework": null,
+        "architecture": "LIBRARY",
+        "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 2.6032397747039795
+      "latency": 13.795726537704468
     },
     "gemini_direct": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "rich/__main__.py",
+        "run_command": "python -m rich",
+        "framework": "Poetry",
+        "architecture": "Library",
+        "primary_evidence_file": "pyproject.toml"
       },
-      "latency": 0.8172647953033447
+      "latency": 10.842341423034668
     }
   },
   {
@@ -163,23 +191,27 @@
         "architecture": "AMBIGUOUS",
         "primary_evidence_file": null
       },
-      "latency": 0.24982905387878418
+      "latency": 0.6997694969177246
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "index.js",
+        "run_command": "npm start",
+        "framework": "express",
+        "architecture": null,
+        "primary_evidence_file": "package.json"
       },
-      "latency": 0.8542671203613281
+      "latency": 6.063629865646362
     },
     "gemini_direct": {
       "results": {
         "entry_point": "index.js",
-        "run_command": null,
+        "run_command": "npm test",
         "framework": "Express.js",
         "architecture": "Library",
-        "primary_evidence_file": "README.md"
+        "primary_evidence_file": "package.json"
       },
-      "latency": 11.057327270507812
+      "latency": 12.246052026748657
     }
   },
   {
@@ -202,23 +234,27 @@
         "architecture": "MONOREPO",
         "primary_evidence_file": null
       },
-      "latency": 10.766602754592896
+      "latency": 48.780827045440674
     },
     "repopilot_d_llm": {
-      "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
-      },
-      "latency": 11.518520593643188
-    },
-    "gemini_direct": {
       "results": {
         "entry_point": null,
         "run_command": null,
         "framework": "React",
+        "architecture": "MONOREPO",
+        "primary_evidence_file": "package.json"
+      },
+      "latency": 80.73433876037598
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "compiler/apps/playground/app/page.tsx",
+        "run_command": "yarn workspace playground dev",
+        "framework": "React",
         "architecture": "Monorepo",
         "primary_evidence_file": "package.json"
       },
-      "latency": 23.62271738052368
+      "latency": 32.758700370788574
     }
   },
   {
@@ -241,19 +277,27 @@
         "architecture": "MONOREPO",
         "primary_evidence_file": null
       },
-      "latency": 8.957071304321289
+      "latency": 27.02798581123352
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": null,
+        "run_command": null,
+        "framework": "NestJS",
+        "architecture": "MONOREPO",
+        "primary_evidence_file": "package.json"
       },
-      "latency": 9.96962594985962
+      "latency": 47.04754829406738
     },
     "gemini_direct": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": null,
+        "run_command": "npm run build",
+        "framework": "NestJS",
+        "architecture": "Library/Framework",
+        "primary_evidence_file": "package.json"
       },
-      "latency": 0.9581270217895508
+      "latency": 31.927613496780396
     }
   },
   {
@@ -276,19 +320,27 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 0.41054224967956543
+      "latency": 0.35807275772094727
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "doc.go",
+        "run_command": null,
+        "framework": "Go modules",
+        "architecture": "CLI_SCRIPT",
+        "primary_evidence_file": "doc.go"
       },
-      "latency": 1.2183551788330078
+      "latency": 18.124346494674683
     },
     "gemini_direct": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": null,
+        "run_command": null,
+        "framework": "Go",
+        "architecture": "Library/Framework",
+        "primary_evidence_file": "README.md"
       },
-      "latency": 0.6383163928985596
+      "latency": 23.5974862575531
     }
   },
   {
@@ -311,19 +363,27 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 0.1925797462463379
+      "latency": 0.23128032684326172
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "cobra_test.go",
+        "run_command": null,
+        "framework": "Go modules",
+        "architecture": "CLI_SCRIPT",
+        "primary_evidence_file": "cobra_test.go"
       },
-      "latency": 0.9875385761260986
+      "latency": 29.000146865844727
     },
     "gemini_direct": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": null,
+        "run_command": null,
+        "framework": "Go",
+        "architecture": "Library",
+        "primary_evidence_file": "README.md"
       },
-      "latency": 0.7038149833679199
+      "latency": 9.8053138256073
     }
   },
   {
@@ -346,19 +406,27 @@
         "architecture": "BACKEND_API",
         "primary_evidence_file": null
       },
-      "latency": 5.764655590057373
+      "latency": 8.97386622428894
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "main.go",
+        "run_command": "go run .",
+        "framework": "Go modules",
+        "architecture": "CLI_SCRIPT",
+        "primary_evidence_file": "main.go"
       },
-      "latency": 6.156389236450195
+      "latency": 19.745135068893433
     },
     "gemini_direct": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "main.go",
+        "run_command": "go run main.go",
+        "framework": "Go",
+        "architecture": "CLI/Script",
+        "primary_evidence_file": "README.md"
       },
-      "latency": 0.699152946472168
+      "latency": 17.376816034317017
     }
   },
   {
@@ -381,19 +449,23 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 0.2988131046295166
+      "latency": 0.5071253776550293
     },
     "repopilot_d_llm": {
       "results": {
-        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+        "entry_point": "src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java",
+        "run_command": "./mvnw spring-boot:run",
+        "framework": "Spring Boot",
+        "architecture": "Web Application (MVC)",
+        "primary_evidence_file": "src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java"
       },
-      "latency": 0.8680644035339355
+      "latency": 17.89501142501831
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.4457376003265381
+      "latency": 62.23337650299072
     }
   },
   {
@@ -416,19 +488,19 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 11.086359024047852
+      "latency": 13.644400358200073
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 11.849735260009766
+      "latency": 66.81425046920776
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.9131877422332764
+      "latency": 35.020981788635254
     }
   },
   {
@@ -451,19 +523,19 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 2.529456377029419
+      "latency": 3.8127267360687256
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 2.972956895828247
+      "latency": 36.18122673034668
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.5725729465484619
+      "latency": 34.381662130355835
     }
   },
   {
@@ -486,19 +558,19 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 4.012782573699951
+      "latency": 3.496724843978882
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 4.850054979324341
+      "latency": 37.81973743438721
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.570213794708252
+      "latency": 40.31990957260132
     }
   },
   {
@@ -521,19 +593,19 @@
         "architecture": "LIBRARY",
         "primary_evidence_file": null
       },
-      "latency": 2.8926968574523926
+      "latency": 5.348920822143555
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 3.2953085899353027
+      "latency": 38.00842356681824
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.7449889183044434
+      "latency": 33.47700357437134
     }
   },
   {
@@ -556,19 +628,19 @@
         "architecture": "LIBRARY",
         "primary_evidence_file": null
       },
-      "latency": 1.0249309539794922
+      "latency": 3.069298267364502
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 1.865880012512207
+      "latency": 35.51562523841858
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.4869229793548584
+      "latency": 34.10133218765259
     }
   },
   {
@@ -591,19 +663,19 @@
         "architecture": "MONOREPO",
         "primary_evidence_file": null
       },
-      "latency": 51.98794722557068
+      "latency": 107.45521783828735
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 52.363430976867676
+      "latency": 140.75075387954712
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.5365922451019287
+      "latency": 35.943912982940674
     }
   },
   {
@@ -626,23 +698,19 @@
         "architecture": "MONOREPO",
         "primary_evidence_file": null
       },
-      "latency": 17.16911268234253
+      "latency": 21.452157974243164
     },
     "repopilot_d_llm": {
       "results": {
-        "entry_point": null,
-        "run_command": "pnpm run dev",
-        "framework": "Angular",
-        "architecture": "MONOREPO",
-        "primary_evidence_file": "package.json"
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 21.206757068634033
+      "latency": 54.925740480422974
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 1.0433237552642822
+      "latency": 38.647581577301025
     }
   },
   {
@@ -665,19 +733,19 @@
         "architecture": "AMBIGUOUS",
         "primary_evidence_file": null
       },
-      "latency": 0.024056434631347656
+      "latency": 0.0811624526977539
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.3745453357696533
+      "latency": 33.29692769050598
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.38535141944885254
+      "latency": 33.511629819869995
     }
   },
   {
@@ -700,19 +768,19 @@
         "architecture": "CLI_SCRIPT",
         "primary_evidence_file": null
       },
-      "latency": 2.5102078914642334
+      "latency": 3.0146522521972656
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 3.0497381687164307
+      "latency": 38.03612565994263
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.5635366439819336
+      "latency": 37.8279550075531
     }
   },
   {
@@ -735,19 +803,19 @@
         "architecture": "AMBIGUOUS",
         "primary_evidence_file": null
       },
-      "latency": 0.06606388092041016
+      "latency": 0.20348882675170898
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.4397614002227783
+      "latency": 32.752503871917725
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.362804651260376
+      "latency": 32.62315845489502
     }
   },
   {
@@ -770,19 +838,19 @@
         "architecture": "BACKEND_API",
         "primary_evidence_file": null
       },
-      "latency": 0.02570199966430664
+      "latency": 0.15119576454162598
     },
     "repopilot_d_llm": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.6656217575073242
+      "latency": 32.32082724571228
     },
     "gemini_direct": {
       "results": {
         "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
       },
-      "latency": 0.4487569332122803
+      "latency": 32.90615463256836
     }
   }
 ]
