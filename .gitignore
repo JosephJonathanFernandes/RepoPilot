@@ -6,3 +6,11 @@ venv/
 .env
 validation/real_repos/
 validation/real_results/
+validation/results/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+research/benchmark_corpus/
+validation/real_repos/
+.venv/

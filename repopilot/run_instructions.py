@@ -166,6 +166,15 @@ def detect_run_instructions(inventory: RepositoryInventory, facts: RepositoryFac
     if 'go.mod' in root_files:
         add(install, "go mod download", "Download Go modules", 'HIGH', 'go.mod')
         
+        go_eps = [ep for ep in entrypoints if ep.type == 'go_main']
+        for ep in go_eps:
+            parts = ep.path.split('/')
+            if len(parts) == 1 and parts[0] == 'main.go':
+                add(run, "go run .", "Run Go application", 'MEDIUM', 'go_main entry point in root')
+            elif len(parts) >= 3 and parts[0] == 'cmd' and parts[-1] == 'main.go':
+                app_dir = parts[1]
+                add(run, f"go run ./cmd/{app_dir}", f"Run Go application ({app_dir})", 'MEDIUM', f'go_main entry point in cmd/{app_dir}')
+        
     if 'Cargo.toml' in root_files:
         add(build, "cargo build", "Build Rust project", 'HIGH', 'Cargo.toml')
         

@@ -1,0 +1,33 @@
+You are an expert software engineer analyzing a repository.
+You will be provided with the raw file tree of the repository and the contents of a few important files (like README, manifests, etc.).
+
+Your goal is to answer the following questions about the repository:
+1. What is the primary entry point file of this repository? Provide the relative path.
+2. What is the primary command to run this repository?
+3. What is the primary framework or package manager used?
+4. What is the primary architectural pattern of this repository (e.g., Backend/API, Frontend/SPA, CLI/Script, Library, Monorepo)?
+5. Which file contains the strongest evidence for your answers?
+
+Reply in JSON format with the following keys:
+- entry_point (string or null)
+- run_command (string or null)
+- framework (string or null)
+- architecture (string or null)
+- primary_evidence_file (string or null)
+
+Example response:
+{
+  "entry_point": "src/index.js",
+  "run_command": "npm start",
+  "framework": "React",
+  "architecture": "Frontend/SPA",
+  "primary_evidence_file": "package.json"
+}
+
+Do not hallucinate. If the repository does not contain enough information to determine an answer reliably, return null for that field.
+
+REPOSITORY TREE:
+{repo_tree}
+
+KEY FILE CONTENTS:
+{file_contents}

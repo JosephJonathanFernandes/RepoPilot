@@ -62,6 +62,22 @@ class TestEntryPoints(unittest.TestCase):
         self.assertIsNotNone(cli)
         self.assertEqual(cli.confidence, 'HIGH')
         
+    def test_javascript_package_main_existence(self):
+        (self.root / 'package.json').write_text(
+            json.dumps({"main": "dist/index.js", "bin": {"cli": "dist/cli.js"}}), encoding='utf-8'
+        )
+        (self.root / 'dist').mkdir()
+        (self.root / 'dist' / 'index.js').touch()
+        
+        eps = self.get_eps()
+        idx = next((e for e in eps if e.path == 'dist/index.js'), None)
+        self.assertIsNotNone(idx)
+        self.assertEqual(idx.existence, 'OBSERVED')
+        
+        cli = next((e for e in eps if e.path == 'dist/cli.js'), None)
+        self.assertIsNotNone(cli)
+        self.assertEqual(cli.existence, 'REFERENCED')
+        
     def test_go_func_main(self):
         (self.root / 'main.go').write_text("package main\nfunc main() {}", encoding='utf-8')
         eps = self.get_eps()

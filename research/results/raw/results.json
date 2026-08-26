@@ -1,0 +1,856 @@
+[
+  {
+    "repository": "psf/black",
+    "ground_truth": {
+      "repository": "psf/black",
+      "entry_point": {
+        "answer": "src/black/__init__.py",
+        "evidence": "pyproject.toml"
+      },
+      "run_command": "black {source_file_or_directory}",
+      "framework": "Click",
+      "architecture": "CLI / Script"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "black {source_file_or_directory}",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.8832290172576904
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "src/black/__main__.py",
+        "run_command": "black {source_file_or_directory}",
+        "framework": "Python (with pip)",
+        "architecture": "Flat / Script-based",
+        "primary_evidence_file": "pyproject.toml"
+      },
+      "latency": 38.616219997406006
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "src/black/__main__.py",
+        "run_command": "black",
+        "framework": "Hatch",
+        "architecture": "CLI/Script",
+        "primary_evidence_file": "pyproject.toml"
+      },
+      "latency": 9.912692546844482
+    }
+  },
+  {
+    "repository": "pallets/flask",
+    "ground_truth": {
+      "repository": "pallets/flask",
+      "entry_point": {
+        "answer": "src/flask/__init__.py",
+        "evidence": "src/flask/__init__.py"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "python src/flask/cli.py",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.25449657440185547
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "src/flask/cli.py",
+        "run_command": "flask",
+        "framework": "Flask",
+        "architecture": "Flat / Script-based",
+        "primary_evidence_file": "pyproject.toml"
+      },
+      "latency": 13.559005975723267
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "src/flask/cli.py",
+        "run_command": "flask run",
+        "framework": "Flask",
+        "architecture": "Library",
+        "primary_evidence_file": "pyproject.toml"
+      },
+      "latency": 10.04309892654419
+    }
+  },
+  {
+    "repository": "tiangolo/fastapi",
+    "ground_truth": {
+      "repository": "tiangolo/fastapi",
+      "entry_point": {
+        "answer": "fastapi/__init__.py",
+        "evidence": "fastapi/__init__.py"
+      },
+      "run_command": null,
+      "framework": "Starlette",
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "$ uv run fastapi dev",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 2.207477331161499
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 9.248186111450195
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": null,
+        "run_command": null,
+        "framework": "FastAPI",
+        "architecture": "Library",
+        "primary_evidence_file": "pyproject.toml"
+      },
+      "latency": 9.13052773475647
+    }
+  },
+  {
+    "repository": "Textualize/rich",
+    "ground_truth": {
+      "repository": "Textualize/rich",
+      "entry_point": {
+        "answer": "rich/__init__.py",
+        "evidence": "rich/__init__.py"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "python rich/__init__.py",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.9944601058959961
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "rich/__main__.py",
+        "run_command": "python -m rich",
+        "framework": "Poetry",
+        "architecture": "Flat / Script-based",
+        "primary_evidence_file": "README.md"
+      },
+      "latency": 16.788273811340332
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "rich/__main__.py",
+        "run_command": "poetry run python -m rich",
+        "framework": "Poetry",
+        "architecture": "Library",
+        "primary_evidence_file": "pyproject.toml"
+      },
+      "latency": 12.914876461029053
+    }
+  },
+  {
+    "repository": "expressjs/express",
+    "ground_truth": {
+      "repository": "expressjs/express",
+      "entry_point": {
+        "answer": "index.js",
+        "evidence": "package.json"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "npm install -g express-generator@4",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.12191033363342285
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "index.js",
+        "run_command": "npm start",
+        "framework": "Express",
+        "architecture": "Flat / Script-based",
+        "primary_evidence_file": "package.json"
+      },
+      "latency": 13.283199071884155
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "index.js",
+        "run_command": null,
+        "framework": "Express.js",
+        "architecture": "Library",
+        "primary_evidence_file": "package.json"
+      },
+      "latency": 10.611857652664185
+    }
+  },
+  {
+    "repository": "facebook/react",
+    "ground_truth": {
+      "repository": "facebook/react",
+      "entry_point": {
+        "answer": null,
+        "evidence": null
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Monorepo"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "yarn run prebuild",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 4.862900733947754
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 42.79505634307861
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "compiler/apps/playground/app/page.tsx",
+        "run_command": "yarn --cwd compiler/apps/playground dev",
+        "framework": "React",
+        "architecture": "Monorepo",
+        "primary_evidence_file": "package.json"
+      },
+      "latency": 24.172704458236694
+    }
+  },
+  {
+    "repository": "nestjs/nest",
+    "ground_truth": {
+      "repository": "nestjs/nest",
+      "entry_point": {
+        "answer": null,
+        "evidence": null
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Monorepo"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "npm run build",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 6.886826753616333
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "src/main.ts",
+        "run_command": "npm start",
+        "framework": "NestJS",
+        "architecture": "Monorepo",
+        "primary_evidence_file": "package.json"
+      },
+      "latency": 200.8723111152649
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": null,
+        "run_command": "npm test",
+        "framework": "NestJS",
+        "architecture": "Monorepo",
+        "primary_evidence_file": "package.json"
+      },
+      "latency": 14.914453744888306
+    }
+  },
+  {
+    "repository": "gin-gonic/gin",
+    "ground_truth": {
+      "repository": "gin-gonic/gin",
+      "entry_point": {
+        "answer": "gin.go",
+        "evidence": "gin.go"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": null,
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.08899450302124023
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "doc.go",
+        "run_command": null,
+        "framework": "Gin",
+        "architecture": "Flat / Script-based",
+        "primary_evidence_file": "README.md"
+      },
+      "latency": 15.833214521408081
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": null,
+        "run_command": null,
+        "framework": "Gin",
+        "architecture": "Library",
+        "primary_evidence_file": "README.md"
+      },
+      "latency": 8.916087865829468
+    }
+  },
+  {
+    "repository": "spf13/cobra",
+    "ground_truth": {
+      "repository": "spf13/cobra",
+      "entry_point": {
+        "answer": "cobra.go",
+        "evidence": "cobra.go"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "go install github.com/spf13/cobra-cli@latest",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.04575395584106445
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": null,
+        "run_command": null,
+        "framework": "Go modules",
+        "architecture": "Flat / Script-based",
+        "primary_evidence_file": "go.mod"
+      },
+      "latency": 16.60122799873352
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": null,
+        "run_command": "go test ./...",
+        "framework": "Go",
+        "architecture": "Library",
+        "primary_evidence_file": "README.md"
+      },
+      "latency": 7.596946477890015
+    }
+  },
+  {
+    "repository": "gohugoio/hugo",
+    "ground_truth": {
+      "repository": "gohugoio/hugo",
+      "entry_point": {
+        "answer": "main.go",
+        "evidence": "main.go"
+      },
+      "run_command": "go run main.go",
+      "framework": null,
+      "architecture": "CLI / Script"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "docker run app",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 1.1616759300231934
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "main.go",
+        "run_command": "go run .",
+        "framework": "Go modules",
+        "architecture": "Command-line application",
+        "primary_evidence_file": "main.go"
+      },
+      "latency": 20.590981245040894
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.6782913208007812
+    }
+  },
+  {
+    "repository": "spring-projects/spring-petclinic",
+    "ground_truth": {
+      "repository": "spring-projects/spring-petclinic",
+      "entry_point": {
+        "answer": "src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java",
+        "evidence": "pom.xml"
+      },
+      "run_command": "./mvnw spring-boot:run",
+      "framework": "Spring Boot",
+      "architecture": "Backend / API"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "git clone https://github.com/spring-projects/spring-petclinic.git",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.06995868682861328
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.9849259853363037
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.5881257057189941
+    }
+  },
+  {
+    "repository": "google/guava",
+    "ground_truth": {
+      "repository": "google/guava",
+      "entry_point": {
+        "answer": null,
+        "evidence": null
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "<dependency>",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 2.223133087158203
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 13.174435138702393
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 1.2919774055480957
+    }
+  },
+  {
+    "repository": "nlohmann/json",
+    "ground_truth": {
+      "repository": "nlohmann/json",
+      "entry_point": {
+        "answer": "include/nlohmann/json.hpp",
+        "evidence": "CMakeLists.txt"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "using json = nlohmann::json;",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.6407499313354492
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 10.516080379486084
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 1.5049920082092285
+    }
+  },
+  {
+    "repository": "redis/redis",
+    "ground_truth": {
+      "repository": "redis/redis",
+      "entry_point": {
+        "answer": "src/server.c",
+        "evidence": "Makefile"
+      },
+      "run_command": "make && src/redis-server",
+      "framework": null,
+      "architecture": "Backend / API"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "export BUILD_TLS=yes            # optional \u2014 TLS support (needs OpenSSL dev libs)",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 1.6002264022827148
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 9.298526287078857
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 1.0992152690887451
+    }
+  },
+  {
+    "repository": "rust-lang/cargo",
+    "ground_truth": {
+      "repository": "rust-lang/cargo",
+      "entry_point": {
+        "answer": "src/bin/cargo/main.rs",
+        "evidence": "Cargo.toml"
+      },
+      "run_command": "cargo run",
+      "framework": null,
+      "architecture": "CLI / Script"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "python ci/generate.py",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 1.9438858032226562
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 20.841168642044067
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "src/bin/cargo/main.rs",
+        "run_command": "cargo run",
+        "framework": "Rust",
+        "architecture": "CLI/Script",
+        "primary_evidence_file": "Cargo.toml"
+      },
+      "latency": 9.160158634185791
+    }
+  },
+  {
+    "repository": "tokio-rs/tokio",
+    "ground_truth": {
+      "repository": "tokio-rs/tokio",
+      "entry_point": {
+        "answer": "tokio/src/lib.rs",
+        "evidence": "tokio/Cargo.toml"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "cargo build",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.3749275207519531
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "entry_point": "tokio/src/lib.rs",
+        "run_command": null,
+        "framework": "Rust/Cargo",
+        "architecture": "Modular Library",
+        "primary_evidence_file": "Cargo.toml"
+      },
+      "latency": 45.13763761520386
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": null,
+        "run_command": "cargo test",
+        "framework": "Tokio",
+        "architecture": "Library",
+        "primary_evidence_file": "README.md"
+      },
+      "latency": 19.669233798980713
+    }
+  },
+  {
+    "repository": "babel/babel",
+    "ground_truth": {
+      "repository": "babel/babel",
+      "entry_point": {
+        "answer": null,
+        "evidence": null
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Monorepo"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "yarn run codesandbox:build",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 34.38557982444763
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: <urlopen error [WinError 10054] An existing connection was forcibly closed by the remote host>"
+      },
+      "latency": 411.29985666275024
+    },
+    "gemini_direct": {
+      "results": {
+        "entry_point": "Makefile",
+        "run_command": "yarn bootstrap",
+        "framework": null,
+        "architecture": "Monorepo",
+        "primary_evidence_file": "package.json"
+      },
+      "latency": 20.52931571006775
+    }
+  },
+  {
+    "repository": "angular/angular",
+    "ground_truth": {
+      "repository": "angular/angular",
+      "entry_point": {
+        "answer": null,
+        "evidence": null
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Monorepo"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "pnpm run ng-dev",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 10.995745182037354
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 49.49014925956726
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 1.0377871990203857
+    }
+  },
+  {
+    "repository": "chalk/chalk",
+    "ground_truth": {
+      "repository": "chalk/chalk",
+      "entry_point": {
+        "answer": "source/index.js",
+        "evidence": "package.json"
+      },
+      "run_command": null,
+      "framework": null,
+      "architecture": "Library"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "import chalk from 'chalk';",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.02379751205444336
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.5734820365905762
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.3968484401702881
+    }
+  },
+  {
+    "repository": "pypa/pip",
+    "ground_truth": {
+      "repository": "pypa/pip",
+      "entry_point": {
+        "answer": "src/pip/__main__.py",
+        "evidence": "pyproject.toml"
+      },
+      "run_command": "python -m pip",
+      "framework": null,
+      "architecture": "CLI / Script"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "python build-project/build-project.py",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 2.3949759006500244
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 4.716804504394531
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.7086186408996582
+    }
+  },
+  {
+    "repository": "gothinkster/node-express-realworld-example-app",
+    "ground_truth": {
+      "repository": "gothinkster/node-express-realworld-example-app",
+      "entry_point": {
+        "answer": "app.js",
+        "evidence": "package.json"
+      },
+      "run_command": "npm start",
+      "framework": "Express",
+      "architecture": "Backend / API"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": "npx nx serve api",
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.05523538589477539
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.7088603973388672
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.4556865692138672
+    }
+  },
+  {
+    "repository": "gothinkster/golang-gin-realworld-example-app",
+    "ground_truth": {
+      "repository": "gothinkster/golang-gin-realworld-example-app",
+      "entry_point": {
+        "answer": "main.go",
+        "evidence": "main.go"
+      },
+      "run_command": "go run main.go",
+      "framework": "Gin",
+      "architecture": "Backend / API"
+    },
+    "repopilot_d": {
+      "results": {
+        "entry_point": null,
+        "run_command": null,
+        "framework": null,
+        "architecture": null,
+        "primary_evidence_file": null
+      },
+      "latency": 0.029882192611694336
+    },
+    "repopilot_d_llm": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.7339146137237549
+    },
+    "gemini_direct": {
+      "results": {
+        "error": "Failed to communicate with Gemini API: HTTP Error 429: Too Many Requests"
+      },
+      "latency": 0.5024073123931885
+    }
+  }
+]

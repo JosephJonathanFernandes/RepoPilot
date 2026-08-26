@@ -7,6 +7,31 @@ except ImportError:
 
 from repopilot.models import RepositoryInventory, RepositoryFacts, EntryPoint
 
+def _resolve_python_module(module_str: str, inventory: RepositoryInventory) -> str | None:
+    """Attempts to resolve a Python module string (e.g., 'black', 'black.main') to a physical file path."""
+    if not module_str:
+        return None
+        
+    base_module = module_str.split(':')[0].split('.')[0]
+    
+    candidates = [
+        f"src/{base_module}/__init__.py",
+        f"src/{base_module}/__main__.py",
+        f"{base_module}/__init__.py",
+        f"{base_module}/__main__.py",
+        f"src/{base_module}.py",
+        f"{base_module}.py"
+    ]
+    
+    # We want to check against the inventory rather than the filesystem if possible,
+    # but since we just have the inventory objects, let's build a set of paths.
+    inventory_paths = {f.path for f in inventory.files}
+    for cand in candidates:
+        if cand in inventory_paths:
+            return cand
+            
+    return None
+
 def _is_test_or_example(path_str: str) -> bool:
     """Returns True if the path implies a test, example, or docs directory/file."""
     parts = path_str.lower().split('/')
@@ -129,13 +154,33 @@ def detect_entrypoints(inventory: RepositoryInventory, facts: RepositoryFacts) -
                 def _add_pkg_entry(rel_path: str, ep_type: str, reason: str):
                     if rel_path.startswith('./'):
                         rel_path = rel_path[2:]
-                    if (root_path / rel_path).is_file():
-                        entrypoints.append(EntryPoint(
-                            path=rel_path.replace('\\', '/'),
-                            type=ep_type,
-                            confidence='HIGH',
-                            reason=reason
-                        ))
+                    
+                    is_observed = (root_path / rel_path).is_file()
+                    
+                    entrypoints.append(EntryPoint(
+                        path=rel_path.replace('\\', '/'),
+                        type=ep_type,
+                        confidence='HIGH',
+                        reason=reason,
+                        existence='OBSERVED' if is_observed else 'REFERENCED'
+                    ))
+                    
+                    # Heuristic: If it's a dist/build artifact, look for the source file
+                    if not is_observed and (rel_path.startswith('dist/') or rel_path.startswith('build/') or rel_path.startswith('lib/')):
+                        base_name = rel_path.split('/')[-1] # e.g., index.js
+                        if base_name.endswith('.js'):
+                            base_name_no_ext = base_name[:-3]
+                            # Check for src/index.ts, src/index.js, etc.
+                            for src_cand in [f'src/{base_name_no_ext}.ts', f'src/{base_name_no_ext}.js']:
+                                if (root_path / src_cand).is_file():
+                                    entrypoints.append(EntryPoint(
+                                        path=src_cand,
+                                        type='source_entry',
+                                        confidence='HIGH',
+                                        reason=f'Resolved source file for built artifact {rel_path}',
+                                        existence='OBSERVED'
+                                    ))
+                                    break
                 
                 if 'main' in data and isinstance(data['main'], str):
                     _add_pkg_entry(data['main'], 'package_entry', 'package.json specifies "main" entry point')
@@ -157,22 +202,39 @@ def detect_entrypoints(inventory: RepositoryInventory, facts: RepositoryFacts) -
             try:
                 data = tomllib.loads(pyproj_path.read_text(encoding='utf-8'))
                 has_scripts = False
+                script_pointers = []
                 
                 # Check [project.scripts]
                 if 'project' in data and 'scripts' in data['project'] and data['project']['scripts']:
                     has_scripts = True
+                    script_pointers.extend(data['project']['scripts'].values())
                     
                 # Check [tool.poetry.scripts]
                 if 'tool' in data and 'poetry' in data['tool'] and 'scripts' in data['tool']['poetry'] and data['tool']['poetry']['scripts']:
                     has_scripts = True
+                    script_pointers.extend(data['tool']['poetry']['scripts'].values())
                     
                 if has_scripts:
-                    entrypoints.append(EntryPoint(
-                        path='pyproject.toml',
-                        type='cli_entry',
-                        confidence='HIGH',
-                        reason='pyproject.toml defines console scripts'
-                    ))
+                    resolved_any = False
+                    for pointer in script_pointers:
+                        if isinstance(pointer, str):
+                            resolved_path = _resolve_python_module(pointer, inventory)
+                            if resolved_path:
+                                resolved_any = True
+                                entrypoints.append(EntryPoint(
+                                    path=resolved_path,
+                                    type='python_script',
+                                    confidence='HIGH',
+                                    reason=f'Resolved pyproject.toml script pointer ({pointer})'
+                                ))
+                    
+                    if not resolved_any:
+                        entrypoints.append(EntryPoint(
+                            path='pyproject.toml',
+                            type='cli_entry',
+                            confidence='HIGH',
+                            reason='pyproject.toml defines console scripts'
+                        ))
             except Exception:
                 pass
 

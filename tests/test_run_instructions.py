@@ -90,6 +90,17 @@ class TestRunInstructions(unittest.TestCase):
         ins = self.get_instructions()
         self.assertTrue(any(c.command == 'pytest' and c.confidence == 'MEDIUM' for c in ins.test))
 
+    def test_go_run_fallback(self):
+        (self.root / 'go.mod').touch()
+        (self.root / 'main.go').write_text("package main\nfunc main() {}", encoding='utf-8')
+        (self.root / 'cmd').mkdir()
+        (self.root / 'cmd' / 'server').mkdir()
+        (self.root / 'cmd' / 'server' / 'main.go').write_text("package main\nfunc main() {}", encoding='utf-8')
+        
+        ins = self.get_instructions()
+        self.assertTrue(any(c.command == 'go run .' and c.confidence == 'MEDIUM' for c in ins.run))
+        self.assertTrue(any(c.command == 'go run ./cmd/server' and c.confidence == 'MEDIUM' for c in ins.run))
+
     def test_no_instructions(self):
         (self.root / 'data.csv').touch()
         ins = self.get_instructions()

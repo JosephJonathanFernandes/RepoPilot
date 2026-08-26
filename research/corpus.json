@@ -1,0 +1,112 @@
+[
+  {
+    "owner_name": "psf/black",
+    "local_path": "research/benchmark_corpus/black",
+    "sha": "8947c48ef2077c3a301b03c1e814dc2e3f78436e"
+  },
+  {
+    "owner_name": "pallets/flask",
+    "local_path": "research/benchmark_corpus/flask",
+    "sha": "d318b683471101618febed18996405ad26462110"
+  },
+  {
+    "owner_name": "tiangolo/fastapi",
+    "local_path": "research/benchmark_corpus/fastapi",
+    "sha": "c3f316b7e814667e8ee81e03a7330d00ee61e45c"
+  },
+  {
+    "owner_name": "Textualize/rich",
+    "local_path": "research/benchmark_corpus/rich",
+    "sha": "9d8f9a372cc5916fd4781fec207ced7ddac2f08f"
+  },
+  {
+    "owner_name": "expressjs/express",
+    "local_path": "research/benchmark_corpus/express",
+    "sha": "a3714473feb3d2908add734d340e7755fd85e0a3"
+  },
+  {
+    "owner_name": "facebook/react",
+    "local_path": "research/benchmark_corpus/react",
+    "sha": "77ed3f545226ac9a834db7490a616b650c2a87a8"
+  },
+  {
+    "owner_name": "nestjs/nest",
+    "local_path": "research/benchmark_corpus/nest",
+    "sha": "dd75d7bd8c5e88048587e6768d36eb695f3e7a25"
+  },
+  {
+    "owner_name": "gin-gonic/gin",
+    "local_path": "research/benchmark_corpus/gin",
+    "sha": "dcaa4296d111981ffb31ac3eba90bb63e1eb5ab9"
+  },
+  {
+    "owner_name": "spf13/cobra",
+    "local_path": "research/benchmark_corpus/cobra",
+    "sha": "adbc8813901bba65827259daa8e22ff94ec1f30e"
+  },
+  {
+    "owner_name": "gohugoio/hugo",
+    "local_path": "research/benchmark_corpus/hugo",
+    "sha": "7b5199fdeff7d7682e9f979f468d55bc7b67b934"
+  },
+  {
+    "owner_name": "spring-projects/spring-petclinic",
+    "local_path": "research/benchmark_corpus/spring-petclinic",
+    "sha": "88e37c15cf6fc8490b01bc3e8e2c800cec1ac272"
+  },
+  {
+    "owner_name": "google/guava",
+    "local_path": "research/benchmark_corpus/guava",
+    "sha": "e9832f5e65142757b6e78b23f20f50c9df6a1adb"
+  },
+  {
+    "owner_name": "nlohmann/json",
+    "local_path": "research/benchmark_corpus/json",
+    "sha": "734fd305a19995673c5b83b4a30c06a96ff5c9b0"
+  },
+  {
+    "owner_name": "redis/redis",
+    "local_path": "research/benchmark_corpus/redis",
+    "sha": "78432ed8e48aba009721a15a88ea8f5c9597b8e5"
+  },
+  {
+    "owner_name": "rust-lang/cargo",
+    "local_path": "research/benchmark_corpus/cargo",
+    "sha": "e8cb624d5701824f46a2ec5873cfd59ee3d2f66c"
+  },
+  {
+    "owner_name": "tokio-rs/tokio",
+    "local_path": "research/benchmark_corpus/tokio",
+    "sha": "ea91b33ca57ff0581b38e735cc108f831bccbdaa"
+  },
+  {
+    "owner_name": "babel/babel",
+    "local_path": "research/benchmark_corpus/babel",
+    "sha": "1da3cfa1a25503c7ecba7304f8738933e6d16dca"
+  },
+  {
+    "owner_name": "angular/angular",
+    "local_path": "research/benchmark_corpus/angular",
+    "sha": "51cb07e98081ab7e4e84a9e0949266a8e19cca84"
+  },
+  {
+    "owner_name": "chalk/chalk",
+    "local_path": "research/benchmark_corpus/chalk",
+    "sha": "661317e6f91fe7c90306c2c48ea9354562ee9146"
+  },
+  {
+    "owner_name": "pypa/pip",
+    "local_path": "research/benchmark_corpus/pip",
+    "sha": "6d309205789d368b2749d93fd6193d584811efd5"
+  },
+  {
+    "owner_name": "gothinkster/node-express-realworld-example-app",
+    "local_path": "research/benchmark_corpus/node-express-realworld-example-app",
+    "sha": "30b68e1e881462b2f4164ea09ab4c4f5699c7b0b"
+  },
+  {
+    "owner_name": "gothinkster/golang-gin-realworld-example-app",
+    "local_path": "research/benchmark_corpus/golang-gin-realworld-example-app",
+    "sha": "626c372d259472148d93303f74aa9b9a1cdcef24"
+  }
+]

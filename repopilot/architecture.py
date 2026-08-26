@@ -33,7 +33,20 @@ PURPOSE_MAP = {
     'store': 'store',
     'hooks': 'hook',
     'packages': 'package',
-    'apps': 'app'
+    'apps': 'app',
+    'examples': 'example',
+    'example': 'example',
+    'scripts': 'script',
+    'script': 'script',
+    'tools': 'tool',
+    'tool': 'tool',
+    'benchmarks': 'benchmark',
+    'benchmark': 'benchmark',
+    'changelog': 'changelog',
+    '.github': 'ci_config',
+    'src': 'source',
+    'lib': 'source',
+    'core': 'source'
 }
 
 def detect_architecture(inventory: RepositoryInventory, facts: RepositoryFacts, entrypoints: list[EntryPoint], run_insts: RunInstructions) -> Architecture:
@@ -186,58 +199,30 @@ def detect_architecture(inventory: RepositoryInventory, facts: RepositoryFacts, 
     
     is_monorepo = 'packages' in categories_found or 'apps' in categories_found
     if is_monorepo:
-        patterns.append(ArchitecturePattern(
-            name='Monorepo',
-            confidence='HIGH',
-            evidence=['Contains packages/ or apps/ directories']
-        ))
-        
-    if 'models' in categories_found and 'views' in categories_found and 'controllers' in categories_found:
-        patterns.append(ArchitecturePattern(
-            name='MVC-like',
-            confidence='HIGH',
-            evidence=['Contains models/, views/, and controllers/ directories']
-        ))
-        
-    if 'services' in categories_found and 'controllers' in categories_found and 'repositories' in categories_found:
-        patterns.append(ArchitecturePattern(
-            name='Layered',
-            confidence='HIGH',
-            evidence=['Contains services/, controllers/, and repositories/ directories']
-        ))
-    elif 'services' in categories_found and ('controllers' in categories_found or 'routes' in categories_found or 'api' in categories_found):
-        patterns.append(ArchitecturePattern(
-            name='Layered',
-            confidence='MEDIUM',
-            evidence=['Contains services/ and API/routing directories']
-        ))
-        
-    is_frontend = ('components' in categories_found or 'pages' in categories_found) and ('React' in facts.frameworks or 'Vue' in facts.frameworks or 'package.json' in facts.manifests)
-    if is_frontend and not is_monorepo:
-        patterns.append(ArchitecturePattern(
-            name='Frontend application',
-            confidence='HIGH' if facts.frameworks else 'MEDIUM',
-            evidence=['Contains frontend structure (components/pages)', 'Manifest/Frameworks imply frontend']
-        ))
-        
-    if 'api' in categories_found or 'routes' in categories_found or 'controllers' in categories_found:
-        if not is_frontend and not is_monorepo:
-            patterns.append(ArchitecturePattern(
-                name='Backend/API application',
-                confidence='MEDIUM',
-                evidence=['Contains routes/, controllers/, or api/ directories']
-            ))
-            
-    # For flat, ignore non-architectural components like tests or documentation
-    non_architectural = {'tests', 'documentation', 'example'}
-    architectural_components = [c for c in components if c.category not in non_architectural]
-    
-    if not architectural_components and len(directories_info) <= 2:
-        patterns.append(ArchitecturePattern(
-            name='Flat / Script-based',
-            confidence='MEDIUM',
-            evidence=['Minimal directory structure', 'No specialized architectural components detected']
-        ))
+        patterns.append(ArchitecturePattern(name='MONOREPO', confidence='HIGH', evidence=['Contains packages/ or apps/ directories']))
+
+    is_frontend = ('components' in categories_found or 'pages' in categories_found) and ('React' in facts.frameworks or 'Vue' in facts.frameworks or 'Angular' in facts.frameworks or 'Svelte' in facts.frameworks or 'package.json' in facts.manifests)
+    if is_frontend:
+        patterns.append(ArchitecturePattern(name='FRONTEND', confidence='HIGH' if facts.frameworks else 'MEDIUM', evidence=['Contains frontend structure and/or framework']))
+
+    is_backend = any(cat in categories_found for cat in ('api', 'routes', 'controllers', 'services', 'models', 'repositories'))
+    if is_backend:
+        patterns.append(ArchitecturePattern(name='BACKEND_API', confidence='HIGH', evidence=['Contains backend routing/service directories']))
+
+    # Check for CLI/Script based on entrypoints
+    has_cli = any(ep.type in ('cli_entry', 'python_script', 'go_main', 'cpp_main', 'java_main', 'csharp_main') for ep in entrypoints)
+    if has_cli:
+        patterns.append(ArchitecturePattern(name='CLI_SCRIPT', confidence='HIGH', evidence=['Entry point analysis explicitly identified executable scripts or binaries']))
+
+    # Check for Library
+    has_lib_entry = any(ep.type == 'package_entry' for ep in entrypoints)
+    is_lib_manifest = 'setup.py' in facts.manifests or 'Cargo.toml' in facts.manifests
+    if has_lib_entry or (is_lib_manifest and not has_cli):
+        patterns.append(ArchitecturePattern(name='LIBRARY', confidence='MEDIUM', evidence=['Contains library-oriented manifest or package entry']))
+
+    # If no patterns were detected at all, fallback
+    if not patterns:
+        patterns.append(ArchitecturePattern(name='AMBIGUOUS', confidence='LOW', evidence=['No definitive architectural markers found']))
 
     return Architecture(
         directories=sorted(directories_info, key=lambda x: x.path),

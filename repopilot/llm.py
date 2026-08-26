@@ -2,6 +2,7 @@ import os
 import json
 import urllib.request
 import urllib.error
+import time
 from typing import Protocol, Optional
 import dataclasses
 
@@ -34,14 +35,23 @@ class GeminiProvider:
             method='POST'
         )
         
-        try:
-            with urllib.request.urlopen(req) as response:
-                result = json.loads(response.read().decode('utf-8'))
-                return result['candidates'][0]['content']['parts'][0]['text']
-        except urllib.error.URLError as e:
-            raise Exception(f"Failed to communicate with Gemini API: {e}")
-        except KeyError:
-            raise Exception("Unexpected response format from Gemini API")
+        max_retries = 5
+        base_delay = 2.0
+        
+        for attempt in range(max_retries):
+            try:
+                with urllib.request.urlopen(req) as response:
+                    result = json.loads(response.read().decode('utf-8'))
+                    return result['candidates'][0]['content']['parts'][0]['text']
+            except urllib.error.HTTPError as e:
+                if e.code == 429 and attempt < max_retries - 1:
+                    time.sleep(base_delay * (2 ** attempt))
+                    continue
+                raise Exception(f"Failed to communicate with Gemini API: {e}")
+            except urllib.error.URLError as e:
+                raise Exception(f"Failed to communicate with Gemini API: {e}")
+            except KeyError:
+                raise Exception("Unexpected response format from Gemini API")
 
 class DataclassEncoder(json.JSONEncoder):
     def default(self, obj):

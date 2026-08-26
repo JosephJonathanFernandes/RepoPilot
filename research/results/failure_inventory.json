@@ -1,0 +1,292 @@
+[
+  {
+    "repository": "psf/black",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "src/black/__init__.py",
+    "actual": null,
+    "evidence_available": [
+      "pyproject.toml"
+    ]
+  },
+  {
+    "repository": "psf/black",
+    "system": "repopilot_d_llm",
+    "task": "entry_point",
+    "expected": "src/black/__init__.py",
+    "actual": "src/black/__main__.py",
+    "evidence_available": [
+      "pyproject.toml"
+    ]
+  },
+  {
+    "repository": "psf/black",
+    "system": "gemini_direct",
+    "task": "entry_point",
+    "expected": "src/black/__init__.py",
+    "actual": "src/black/__main__.py",
+    "evidence_available": [
+      "pyproject.toml"
+    ]
+  },
+  {
+    "repository": "pallets/flask",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "src/flask/__init__.py",
+    "actual": null,
+    "evidence_available": [
+      "src/flask/__init__.py"
+    ]
+  },
+  {
+    "repository": "pallets/flask",
+    "system": "repopilot_d_llm",
+    "task": "entry_point",
+    "expected": "src/flask/__init__.py",
+    "actual": "src/flask/cli.py",
+    "evidence_available": [
+      "src/flask/__init__.py"
+    ]
+  },
+  {
+    "repository": "pallets/flask",
+    "system": "gemini_direct",
+    "task": "entry_point",
+    "expected": "src/flask/__init__.py",
+    "actual": "src/flask/cli.py",
+    "evidence_available": [
+      "src/flask/__init__.py"
+    ]
+  },
+  {
+    "repository": "tiangolo/fastapi",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "fastapi/__init__.py",
+    "actual": null,
+    "evidence_available": [
+      "fastapi/__init__.py"
+    ]
+  },
+  {
+    "repository": "tiangolo/fastapi",
+    "system": "gemini_direct",
+    "task": "entry_point",
+    "expected": "fastapi/__init__.py",
+    "actual": null,
+    "evidence_available": [
+      "fastapi/__init__.py"
+    ]
+  },
+  {
+    "repository": "Textualize/rich",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "rich/__init__.py",
+    "actual": null,
+    "evidence_available": [
+      "rich/__init__.py"
+    ]
+  },
+  {
+    "repository": "Textualize/rich",
+    "system": "repopilot_d_llm",
+    "task": "entry_point",
+    "expected": "rich/__init__.py",
+    "actual": "rich/__main__.py",
+    "evidence_available": [
+      "rich/__init__.py"
+    ]
+  },
+  {
+    "repository": "Textualize/rich",
+    "system": "gemini_direct",
+    "task": "entry_point",
+    "expected": "rich/__init__.py",
+    "actual": "rich/__main__.py",
+    "evidence_available": [
+      "rich/__init__.py"
+    ]
+  },
+  {
+    "repository": "expressjs/express",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "index.js",
+    "actual": null,
+    "evidence_available": [
+      "package.json"
+    ]
+  },
+  {
+    "repository": "gin-gonic/gin",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "gin.go",
+    "actual": null,
+    "evidence_available": [
+      "gin.go"
+    ]
+  },
+  {
+    "repository": "gin-gonic/gin",
+    "system": "repopilot_d_llm",
+    "task": "entry_point",
+    "expected": "gin.go",
+    "actual": "doc.go",
+    "evidence_available": [
+      "gin.go"
+    ]
+  },
+  {
+    "repository": "gin-gonic/gin",
+    "system": "gemini_direct",
+    "task": "entry_point",
+    "expected": "gin.go",
+    "actual": null,
+    "evidence_available": [
+      "gin.go"
+    ]
+  },
+  {
+    "repository": "spf13/cobra",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "cobra.go",
+    "actual": null,
+    "evidence_available": [
+      "cobra.go"
+    ]
+  },
+  {
+    "repository": "spf13/cobra",
+    "system": "repopilot_d_llm",
+    "task": "entry_point",
+    "expected": "cobra.go",
+    "actual": null,
+    "evidence_available": [
+      "cobra.go"
+    ]
+  },
+  {
+    "repository": "spf13/cobra",
+    "system": "gemini_direct",
+    "task": "entry_point",
+    "expected": "cobra.go",
+    "actual": null,
+    "evidence_available": [
+      "cobra.go"
+    ]
+  },
+  {
+    "repository": "gohugoio/hugo",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "main.go",
+    "actual": null,
+    "evidence_available": [
+      "main.go"
+    ]
+  },
+  {
+    "repository": "spring-projects/spring-petclinic",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java",
+    "actual": null,
+    "evidence_available": [
+      "pom.xml"
+    ]
+  },
+  {
+    "repository": "nlohmann/json",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "include/nlohmann/json.hpp",
+    "actual": null,
+    "evidence_available": [
+      "CMakeLists.txt"
+    ]
+  },
+  {
+    "repository": "redis/redis",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "src/server.c",
+    "actual": null,
+    "evidence_available": [
+      "Makefile"
+    ]
+  },
+  {
+    "repository": "rust-lang/cargo",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "src/bin/cargo/main.rs",
+    "actual": null,
+    "evidence_available": [
+      "Cargo.toml"
+    ]
+  },
+  {
+    "repository": "tokio-rs/tokio",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "tokio/src/lib.rs",
+    "actual": null,
+    "evidence_available": [
+      "tokio/Cargo.toml"
+    ]
+  },
+  {
+    "repository": "tokio-rs/tokio",
+    "system": "gemini_direct",
+    "task": "entry_point",
+    "expected": "tokio/src/lib.rs",
+    "actual": null,
+    "evidence_available": [
+      "tokio/Cargo.toml"
+    ]
+  },
+  {
+    "repository": "chalk/chalk",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "source/index.js",
+    "actual": null,
+    "evidence_available": [
+      "package.json"
+    ]
+  },
+  {
+    "repository": "pypa/pip",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "src/pip/__main__.py",
+    "actual": null,
+    "evidence_available": [
+      "pyproject.toml"
+    ]
+  },
+  {
+    "repository": "gothinkster/node-express-realworld-example-app",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "app.js",
+    "actual": null,
+    "evidence_available": [
+      "package.json"
+    ]
+  },
+  {
+    "repository": "gothinkster/golang-gin-realworld-example-app",
+    "system": "repopilot_d",
+    "task": "entry_point",
+    "expected": "main.go",
+    "actual": null,
+    "evidence_available": [
+      "main.go"
+    ]
+  }
+]

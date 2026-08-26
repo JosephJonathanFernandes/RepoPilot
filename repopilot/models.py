@@ -41,6 +41,7 @@ class EntryPoint:
     type: str
     confidence: str
     reason: str
+    existence: str = 'OBSERVED'
 
 @dataclass
 class RunInstruction:

@@ -29,7 +29,7 @@ class TestArchitecture(unittest.TestCase):
         (self.root / 'utils.py').touch()
         
         arch = self.get_arch()
-        self.assertTrue(any(p.name == 'Flat / Script-based' for p in arch.patterns))
+        self.assertTrue(any(p.name == 'CLI_SCRIPT' for p in arch.patterns))
         self.assertEqual(len(arch.components), 0)
         self.assertTrue(any(r.source == 'main.py' and r.target == 'utils.py' for r in arch.relations))
         
@@ -39,7 +39,7 @@ class TestArchitecture(unittest.TestCase):
             (self.root / d / f'{d}.py').touch()
             
         arch = self.get_arch()
-        self.assertTrue(any(p.name == 'Layered' for p in arch.patterns))
+        self.assertTrue(any(p.name == 'BACKEND_API' for p in arch.patterns))
         self.assertEqual(len(arch.components), 4)
         
     def test_python_import_relationships(self):
@@ -74,7 +74,7 @@ class TestArchitecture(unittest.TestCase):
             (self.root / d / 'foo.py').touch()
             
         arch = self.get_arch()
-        self.assertTrue(any(p.name == 'MVC-like' for p in arch.patterns))
+        self.assertTrue(any(p.name == 'BACKEND_API' for p in arch.patterns))
         
     def test_frontend_detection(self):
         (self.root / 'components').mkdir()
@@ -82,7 +82,7 @@ class TestArchitecture(unittest.TestCase):
         (self.root / 'package.json').write_text('{"dependencies": {"react": "18"}}', encoding='utf-8')
         
         arch = self.get_arch()
-        self.assertTrue(any(p.name == 'Frontend application' for p in arch.patterns))
+        self.assertTrue(any(p.name == 'FRONTEND' for p in arch.patterns))
         
     def test_monorepo_detection(self):
         (self.root / 'packages').mkdir()
@@ -90,13 +90,13 @@ class TestArchitecture(unittest.TestCase):
         (self.root / 'packages' / 'core' / 'index.js').touch()
         
         arch = self.get_arch()
-        self.assertTrue(any(p.name == 'Monorepo' for p in arch.patterns))
+        self.assertTrue(any(p.name == 'MONOREPO' for p in arch.patterns))
         
     def test_no_architecture(self):
         (self.root / 'data.csv').touch()
         
         arch = self.get_arch()
-        self.assertTrue(any(p.name == 'Flat / Script-based' for p in arch.patterns))
+        self.assertTrue(any(p.name == 'AMBIGUOUS' for p in arch.patterns))
         
     def test_test_directories_not_components(self):
         (self.root / 'tests').mkdir()
@@ -107,7 +107,18 @@ class TestArchitecture(unittest.TestCase):
         arch = self.get_arch()
         self.assertTrue(any(c.path == 'tests/' and c.category == 'tests' for c in arch.components))
         self.assertTrue(any(c.path == 'docs/' and c.category == 'documentation' for c in arch.components))
-        self.assertTrue(any(p.name == 'Flat / Script-based' for p in arch.patterns), "Should be flat despite tests/docs")
+        self.assertTrue(any(p.name == 'AMBIGUOUS' for p in arch.patterns), "Should be AMBIGUOUS despite tests/docs")
+
+    def test_flat_architecture_with_auxiliary_directories(self):
+        # Simulate a mature project like black
+        (self.root / 'src').mkdir()
+        (self.root / 'src' / 'black.py').touch()
+        for d in ['tests', 'docs', 'scripts', 'tools', 'benchmarks', '.github', 'changelog']:
+            (self.root / d).mkdir()
+            (self.root / d / f'foo_{d}.txt').touch()
+            
+        arch = self.get_arch()
+        self.assertTrue(any(p.name == 'AMBIGUOUS' for p in arch.patterns))
 
     def test_monorepo_suppresses_generic_backend_frontend(self):
         (self.root / 'apps').mkdir()
@@ -119,7 +130,7 @@ class TestArchitecture(unittest.TestCase):
         (self.root / 'package.json').write_text('{"dependencies": {"react": "18"}}', encoding='utf-8')
         
         arch = self.get_arch()
-        self.assertTrue(any(p.name == 'Monorepo' for p in arch.patterns))
+        self.assertTrue(any(p.name == 'MONOREPO' for p in arch.patterns))
         self.assertFalse(any(p.name == 'Backend/API application' for p in arch.patterns))
         self.assertFalse(any(p.name == 'Frontend application' for p in arch.patterns))
 
