@@ -25,7 +25,7 @@ class TestArchitecture(unittest.TestCase):
         return detect_architecture(inventory, facts, eps, insts)
         
     def test_flat_python_repo(self):
-        (self.root / 'main.py').write_text("import utils", encoding='utf-8')
+        (self.root / 'main.py').write_text("import utils\n\nif __name__ == '__main__':\n    pass", encoding='utf-8')
         (self.root / 'utils.py').touch()
         
         arch = self.get_arch()

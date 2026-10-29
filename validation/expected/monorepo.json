@@ -9,7 +9,7 @@
   },
   "architecture_patterns": {
     "required": [
-      "Monorepo"
+      "MONOREPO"
     ]
   }
 }

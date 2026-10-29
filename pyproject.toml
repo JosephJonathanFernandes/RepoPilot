@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "repopilot"
-version = "0.1.0"
+version = "0.2.0"
 description = "A deterministic repository intelligence engine with evidence-backed LLM explanations."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -12,10 +12,70 @@ license = {text = "MIT License"}
 authors = [
   {name = "Joseph", email = "joseph@example.com"}
 ]
-dependencies = []
+keywords = [
+  "repository-analysis",
+  "static-analysis",
+  "codebase-intelligence",
+  "developer-tools",
+  "llm",
+  "deterministic",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities",
+]
+dependencies = [
+  "python-dotenv>=1.0.0",
+]
 
 [project.scripts]
 repopilot = "repopilot.cli:main"
 
 [tool.setuptools]
 packages = ["repopilot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "B", "C4", "UP", "PYI", "PLC", "PLR", "PLW", "PERF"]
+ignore = [
+    "E501",      # line too long (handled by formatter)
+    "B008",      # function calls in default arguments
+    "N802",      # function name should be lowercase (camelCase allowed for external APIs)
+    "PLR0913",   # too many arguments to function call
+    "PLR0912",   # too many branches
+    "PLR0915",   # too many statements
+    "PERF401",   # unnecessary list comprehension
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true

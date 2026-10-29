@@ -22,7 +22,7 @@
   },
   "architecture_patterns": {
     "required": [
-      "Backend/API application"
+      "BACKEND_API"
     ]
   },
   "run_instructions": {

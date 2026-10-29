@@ -1,59 +1,75 @@
-import os
-import json
-import urllib.request
-import urllib.error
-import time
-from typing import Protocol, Optional
-import dataclasses
+"""LLM integration — optional explanatory layer on top of deterministic evidence."""
 
-from repopilot.models import RepositoryEvidence, ExplanationResponse
+from __future__ import annotations
+
+import dataclasses
+import json
+import time
+import urllib.error
+import urllib.request
+from typing import Protocol, Optional
+
+from repopilot.models import ExplanationResponse, RepositoryEvidence
+
+# The free Gemini tier is limited to 15 requests per minute; a small sleep
+# between calls keeps us safely under that ceiling during benchmarks.
+GEMINI_RATE_LIMIT_SLEEP = 4.0
+
 
 class LLMProvider(Protocol):
     def generate(self, prompt: str) -> str:
         ...
 
+
 class GeminiProvider:
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, model: str = "gemini-2.5-flash"):
         self.api_key = api_key
-        self.url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={self.api_key}"
+        self.model = model
+        self.url = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+            f"?key={self.api_key}"
+        )
 
     def generate(self, prompt: str) -> str:
-        # Hard rate limit to prevent hitting 15 RPM free-tier limit during benchmarks
-        time.sleep(4.0)
+        time.sleep(GEMINI_RATE_LIMIT_SLEEP)
+
         data = {
-            "contents": [{
-                "parts": [{"text": prompt}]
-            }],
+            "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {
                 "temperature": 0.2,
-                "response_mime_type": "application/json"
-            }
+                "response_mime_type": "application/json",
+            },
         }
-        
+
         req = urllib.request.Request(
             self.url,
-            data=json.dumps(data).encode('utf-8'),
-            headers={'Content-Type': 'application/json'},
-            method='POST'
+            data=json.dumps(data).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
         )
-        
+
         max_retries = 5
         base_delay = 2.0
-        
+        last_error: Optional[Exception] = None
+
         for attempt in range(max_retries):
             try:
-                with urllib.request.urlopen(req) as response:
-                    result = json.loads(response.read().decode('utf-8'))
-                    return result['candidates'][0]['content']['parts'][0]['text']
-            except urllib.error.HTTPError as e:
-                if e.code == 429 and attempt < max_retries - 1:
+                with urllib.request.urlopen(req, timeout=60) as response:
+                    result = json.loads(response.read().decode("utf-8"))
+                    return result["candidates"][0]["content"]["parts"][0]["text"]
+            except urllib.error.HTTPError as exc:
+                last_error = exc
+                if exc.code == 429 and attempt < max_retries - 1:
                     time.sleep(base_delay * (2 ** attempt))
                     continue
-                raise Exception(f"Failed to communicate with Gemini API: {e}")
-            except urllib.error.URLError as e:
-                raise Exception(f"Failed to communicate with Gemini API: {e}")
-            except KeyError:
-                raise Exception("Unexpected response format from Gemini API")
+                raise Exception(f"Failed to communicate with Gemini API: {exc}") from exc
+            except urllib.error.URLError as exc:
+                raise Exception(f"Failed to communicate with Gemini API: {exc}") from exc
+            except (KeyError, IndexError) as exc:
+                raise Exception("Unexpected response format from Gemini API") from exc
+
+        raise Exception(f"Failed to communicate with Gemini API after {max_retries} attempts: {last_error}")
+
 
 class DataclassEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -61,9 +77,10 @@ class DataclassEncoder(json.JSONEncoder):
             return dataclasses.asdict(obj)
         return super().default(obj)
 
+
 def build_prompt(evidence: RepositoryEvidence) -> str:
     evidence_json = json.dumps(evidence, cls=DataclassEncoder, indent=2)
-    
+
     prompt = f"""You are RepoPilot, a technical repository analysis assistant.
 
 You have been provided with deterministic, structured evidence extracted from a codebase.
@@ -100,17 +117,17 @@ Respond ONLY with a valid JSON object following this exact schema:
 """
     return prompt
 
+
 def parse_llm_response(response_text: str) -> ExplanationResponse:
     try:
         response_text = response_text.strip()
-        # Strip potential markdown blocks if the model ignored response_mime_type
         if response_text.startswith("```json"):
             response_text = response_text.split("```json", 1)[1]
         if response_text.endswith("```"):
             response_text = response_text.rsplit("```", 1)[0]
-            
+
         data = json.loads(response_text.strip())
-        
+
         return ExplanationResponse(
             overview=data.get("overview", "Not determined from available repository evidence."),
             architecture=data.get("architecture", "Not determined from available repository evidence."),
@@ -120,10 +137,11 @@ def parse_llm_response(response_text: str) -> ExplanationResponse:
             dependencies=data.get("dependencies", []),
             getting_started=data.get("getting_started", "Not determined from available repository evidence."),
             contribution_areas=data.get("contribution_areas", []),
-            caveats=data.get("caveats", [])
+            caveats=data.get("caveats", []),
         )
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Failed to parse structured LLM response: {e}\nResponse was: {response_text}")
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Failed to parse structured LLM response: {exc}\nResponse was: {response_text}") from exc
+
 
 def generate_explanation(evidence: RepositoryEvidence, provider: LLMProvider) -> ExplanationResponse:
     prompt = build_prompt(evidence)

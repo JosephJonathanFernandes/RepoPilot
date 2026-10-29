@@ -16,7 +16,7 @@
   },
   "architecture_patterns": {
     "required": [
-      "Flat / Script-based"
+      "CLI_SCRIPT"
     ]
   }
 }

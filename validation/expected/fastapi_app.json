@@ -21,8 +21,7 @@
   },
   "architecture_patterns": {
     "required": [
-      "Backend/API application",
-      "Layered"
+      "BACKEND_API"
     ]
   },
   "run_instructions": {

@@ -21,7 +21,7 @@ def get_scenarios() -> List[Scenario]:
                 "languages": {"required": ["Python"]},
                 "entry_points": {"required": ["main.py"]},
                 "important_files": {"required": ["requirements.txt"]},
-                "architecture_patterns": {"required": ["Flat / Script-based"]}
+                "architecture_patterns": {"required": ["CLI_SCRIPT"]}
             }
         ),
         Scenario(
@@ -40,7 +40,7 @@ def get_scenarios() -> List[Scenario]:
                 "frameworks": {"required": ["FastAPI"]},
                 "entry_points": {"required": ["app/main.py"]},
                 "important_files": {"required": ["requirements.txt"]},
-                "architecture_patterns": {"required": ["Backend/API application", "Layered"]},
+                "architecture_patterns": {"required": ["BACKEND_API"]},
                 "run_instructions": {"required": ["pip install -r requirements.txt", "uvicorn app.main:app --reload"]}
             }
         ),
@@ -59,7 +59,7 @@ def get_scenarios() -> List[Scenario]:
                 "package_managers": {"required": ["npm"]},
                 "manifests": {"required": ["package.json", "package-lock.json"]},
                 "entry_points": {"required": ["src/index.js"]},
-                "architecture_patterns": {"required": ["Backend/API application"]},
+                "architecture_patterns": {"required": ["BACKEND_API"]},
                 "run_instructions": {"required": ["npm run start", "npm run test", "npm install"]}
             }
         ),
@@ -79,7 +79,7 @@ def get_scenarios() -> List[Scenario]:
                 "frameworks": {"required": ["React"]},
                 "package_managers": {"required": ["yarn"]},
                 "manifests": {"required": ["package.json"]},
-                "architecture_patterns": {"required": ["Frontend application"]}
+                "architecture_patterns": {"required": ["FRONTEND"]}
             }
         ),
         Scenario(
@@ -106,7 +106,7 @@ def get_scenarios() -> List[Scenario]:
             },
             expected={
                 "manifests": {"required": ["package.json", "apps/web/package.json", "apps/api/package.json", "packages/ui/package.json"]},
-                "architecture_patterns": {"required": ["Monorepo"]}
+                "architecture_patterns": {"required": ["MONOREPO"]}
             }
         ),
         Scenario(

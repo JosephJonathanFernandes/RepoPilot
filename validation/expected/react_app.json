@@ -21,7 +21,7 @@
   },
   "architecture_patterns": {
     "required": [
-      "Frontend application"
+      "FRONTEND"
     ]
   }
 }
